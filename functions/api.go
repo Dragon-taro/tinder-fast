@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Dragon-taro/tinder-go/types"
+	"github.com/Dragon-taro/tinder-fist/types"
 )
 
-var jsonStr = []byte(`{"facebook_token": "YOUR FACEBOOK ACCESS TOKEN", "facebook_id": "YOUR FACEBOOK ID"}`)
+var jsonStr = []byte(`{"facebook_token": "YOUR_FACEBOOK_ACCESS_TOKEN", "facebook_id": "YOUR_FACEBOOK_ID"}`)
 
 func Http(path string, token string, method string) ([]byte, error) {
 	// note: tokenのnil許容の方法 -> *stringだとreq.Header.Setでエラー
