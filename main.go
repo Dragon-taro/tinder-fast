@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/Dragon-taro/tinder-fist/functions"
-	"github.com/Dragon-taro/tinder-fist/types"
+	"github.com/Dragon-taro/tinder-fast/functions"
+	"github.com/Dragon-taro/tinder-fast/types"
 )
 
 func main() {

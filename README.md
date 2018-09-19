@@ -1,4 +1,4 @@
-# Tinder Fist
+# Tinder Fast
 
 ## Tinder をとにかく速く全部いいねしたい
 
