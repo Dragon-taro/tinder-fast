@@ -11,8 +11,8 @@ import (
 
 var jsonStr = []byte(`{"facebook_token": "YOUR_FACEBOOK_ACCESS_TOKEN", "facebook_id": "YOUR_FACEBOOK_ID"}`)
 
-func Http(path string, token string, method string) ([]byte, error) {
-	// note: tokenのnil許容の方法 -> *stringだとreq.Header.Setでエラー
+// HTTP is a function for sending Http request
+func HTTP(path string, token string, method string) ([]byte, error) {
 	url := "https://api.gotinder.com/" + path
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonStr))
 	if err != nil {
@@ -40,14 +40,13 @@ func request(req *http.Request, token string) ([]byte, error) {
 
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-
-	return body, err
+	return ioutil.ReadAll(resp.Body)
 }
 
+// Like is a function for sending like
 func Like(c chan string, token string, u types.ResultUser) {
 	path := "like/" + string(u.ID)
-	_, err := Http(path, token, "GET")
+	_, err := HTTP(path, token, "GET")
 
 	if err == nil {
 		c <- u.Name + "さんをLikeしました！"
