@@ -5,12 +5,11 @@ type User struct {
 		ID       string `json:"_id"`
 		Name     string `json:"name"`
 		APIToken string `json:"api_token"`
-	} `json:"user"`
+	} `json:"data"`
 }
 
 type ResultUser struct {
-	ID   string `json:"_id"`
-	Name string `json:"name"`
+	ID string `json:"_id"`
 }
 
 type Users struct {

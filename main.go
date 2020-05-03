@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/Dragon-taro/tinder-fast/functions"
@@ -9,7 +10,7 @@ import (
 )
 
 func main() {
-	body, err := functions.HTTP("auth", "", "POST")
+	body, err := functions.HTTPWithBody("v2/auth/login/facebook", "", "POST")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -19,16 +20,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ch := make(chan bool, 10)
 	for i := 0; i < 10; i++ {
-		go likeTenUsers(ch, user)
-	}
-	for i := 1; i <= 10; i++ {
-		<-ch
+		likeTenUsers(user)
 	}
 }
 
-func likeTenUsers(ch chan bool, user types.User) {
+func likeTenUsers(user types.User) {
 	body, err := functions.HTTP("user/recs", user.User.APIToken, "GET") // token := user.User.APIToken
 	if err != nil {
 		log.Fatal(err)
@@ -39,15 +36,8 @@ func likeTenUsers(ch chan bool, user types.User) {
 		log.Fatal(err)
 	}
 
-	c := make(chan string, 10)
-
 	for _, u := range users.Users {
-		go functions.Like(c, user.User.APIToken, u)
+		functions.Like(user.User.APIToken, u)
+		fmt.Println("liked")
 	}
-
-	for range users.Users {
-		log.Print(<-c)
-	}
-
-	ch <- true
 }
